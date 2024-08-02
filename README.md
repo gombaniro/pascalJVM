@@ -52,8 +52,8 @@ To build the project from source, follow these steps:
 
 1. **Clone the repository**:
     ```sh
-    git clone https://github.com/yourusername/PascalJVM.git
-    cd PascalJVM
+    git clone git@github.com:gombaniro/pascal-compiler.git
+    cd pascal-compiler
     ```
 
 2. **Build with Maven**:
