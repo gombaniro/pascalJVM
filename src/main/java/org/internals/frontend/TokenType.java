@@ -1,4 +1,4 @@
 package org.internals.frontend;
 
-public class SymbolTable {
+public interface TokenType {
 }
