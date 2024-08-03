@@ -1,25 +1,65 @@
 package org.internals.frontend;
 
+/**
+ * <h1>Scanner</h1>
+ *
+ * <p>A language-independent framework class. This abstract scanner class
+ * will be implemented by language-specific subclasses.</p>
+ */
 public abstract class Scanner {
 
-    protected Source source;
+    protected Source source;        // source
+    private Token currentToken;     // currentToken
 
     /**
      * Constructor.
-     * @param source the source where token characters are coming from.
+     * @param source the source to be used with this scanner.
      */
     public Scanner(Source source) {
         this.source = source;
     }
 
-    public abstract Token currentToken();
+    /**
+     *
+     * @return the current token
+     */
+    public  Token currentToken() {
+        return currentToken;
+    }
 
-    public abstract Token nextToken();
+    /**
+     * Return next token from the source.
+     * @return the next token.
+     * @throws Exception if an error occurred.
+     */
+    public  Token nextToken() throws Exception {
+        currentToken = extractToken();
+        return currentToken;
+    }
 
-    protected abstract  Token extractToken();
+    /**
+     * Do the actual work of extracting and returning the next token from the
+     * source. Implemented by scanner subclasses.
+     * @return the next token
+     * @throws Exception if an error occurred.
+     */
+    protected abstract  Token extractToken() throws Exception;
+
+
+    /**
+     * Call the source's currentChar() method
+     * @return the current character from the source
+     * @throws Exception if an error occurred
+     */
     public  char currentChar() throws Exception {
         return this.source.currentChar();
     }
+
+    /**
+     * Call the source's nextChar() method
+     * @return the next character from the source
+     * @throws Exception if an error occurred
+     */
     public  char nextChar() throws Exception {
         return this.source.nextChar();
     }
