@@ -20,6 +20,13 @@ public class Token {
         extract();
     }
 
+    /**
+     * Default method to extract only one-character tokens from the source.
+     * Subclasses can override this method to construct language-specific
+     * tokens. After extracting the token, the current source line position
+     * will be one beyond the last token character.
+     * @throws Exception if an error occurred.
+     */
     protected void extract() throws Exception {
         text = Character.toString(currentChar());
         value = null;

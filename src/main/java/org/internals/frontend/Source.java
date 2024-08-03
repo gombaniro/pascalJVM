@@ -1,5 +1,7 @@
 package org.internals.frontend;
 
+import org.internals.message.*;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 
@@ -8,7 +10,7 @@ import java.io.IOException;
  *
  * <p>The framework class the represents the source program.</p>
  */
-public class Source {
+public class Source implements MessageProducer {
     public static final char EOL = '\n';          // end-of-line character
     public static final char EOF = (char)0;       // end-of-file character
 
@@ -16,6 +18,8 @@ public class Source {
     private String line;                          // source line
     private int lineNum;                          // current source line number
     private int currentPos;                       // current source line position
+
+    MessageHandler messageHandler;
 
     /**
      * Constructor.
@@ -94,6 +98,11 @@ public class Source {
         if (line != null) {
             ++lineNum;
         }
+        // send a source line message containing the line number
+        // and the line text to all the listeners.
+        if (line != null) {
+            sendMessage(new Message(MessageType.SOURCE_LINE, new Object[]{lineNum, line}));
+        }
     }
 
     public int getLine() {
@@ -117,5 +126,20 @@ public class Source {
                 throw ex;
             }
         }
+    }
+
+    @Override
+    public void addMessageListener(MessageListener listener) {
+        messageHandler.addMessageListener(listener);
+    }
+
+    @Override
+    public void removeMessageListener(MessageListener listener) {
+        messageHandler.removeMessageListener(listener);
+    }
+
+    @Override
+    public void sendMessage(Message message) {
+         messageHandler.sendMessage(message);
     }
 }
