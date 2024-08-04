@@ -19,7 +19,10 @@ public class Source implements MessageProducer {
     private int lineNum;                          // current source line number
     private int currentPos;                       // current source line position
 
-    MessageHandler messageHandler;
+    private static MessageHandler messageHandler;
+    static {
+        messageHandler = new MessageHandler();
+    }
 
     /**
      * Constructor.
