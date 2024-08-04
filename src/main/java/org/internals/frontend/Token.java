@@ -60,4 +60,11 @@ public class Token {
         return source.peekChar();
     }
 
+    public int getLineNumber() {
+        return lineNum;
+    }
+
+    public int getPosition() {
+        return position;
+    }
 }
